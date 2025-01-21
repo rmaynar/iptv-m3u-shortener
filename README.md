@@ -14,16 +14,16 @@ A versatile Python script for filtering and processing M3U playlist files with f
 
 ### Basic Syntax
 ```bash
-python3 script_name.py input.m3u output.m3u [filter1] [filter2] ...
+python3 filterm3u.py input.m3u output.m3u [filter1] [filter2] ...
 ```
 
 ### Examples
 ```bash
 # Copy entire playlist
-python3 script.py input.m3u output.m3u
+python3 filterm3u.py input.m3u output.m3u
 
 # Filter specific channels
-python3 script.py input.m3u output.m3u UK DE
+python3 filterm3u.py input.m3u output.m3u UK DE
 ```
 
 ## Filtering Rules
