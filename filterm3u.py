@@ -16,14 +16,21 @@ def process_m3u_file(input_file, output_file, filters):
                     outfile.write(line + '\n')
                     include_next_line = True
                 else:
+                    # Match group-title and tvg-name fields
                     group_title_match = re.search(r'group-title="([^"]*)"', line)
-                    if group_title_match:
-                        group_title = group_title_match.group(1)
-                        if any(filter_word in group_title for filter_word in filters) or group_title == "4K| UHD 3840P":
+                    tvg_name_match = re.search(r'tvg-name="([^"]*)"', line)
+                    
+                    group_title = group_title_match.group(1) if group_title_match else ""
+                    tvg_name = tvg_name_match.group(1) if tvg_name_match else ""
+
+                    # Check if group-title starts with filter + '|' or tvg-name starts with filter
+                    if (any(group_title.startswith(filter_word + '|') for filter_word in filters) or 
+                        any(tvg_name.startswith(filter_word) for filter_word in filters) or 
+                        group_title == "4K| UHD 3840P"):
                             outfile.write(line + '\n')
                             include_next_line = True
-                        else:
-                            include_next_line = False
+                    else:
+                        include_next_line = False
             elif include_next_line or not filters:
                 outfile.write(line + '\n')
                 include_next_line = False
